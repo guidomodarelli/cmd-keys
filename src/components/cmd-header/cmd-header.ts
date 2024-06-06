@@ -27,6 +27,7 @@ template.innerHTML = /* html */ `
 
 export class CmdHeader extends HTMLElement {
   static readonly PLACEHOLDER_DEFAULT = "Type here...";
+  static readonly BREADCRUMB_HOME_DEFAULT = "Home";
 
   private inputRef: HTMLInputElement;
 
@@ -181,7 +182,10 @@ export class CmdHeader extends HTMLElement {
   }
 
   getBreadcrumbHome(): string {
-    return this.getAttribute(Attributes.BREADCRUMB_HOME) ?? "Home";
+    return (
+      this.getAttribute(Attributes.BREADCRUMB_HOME) ??
+      CmdHeader.BREADCRUMB_HOME_DEFAULT
+    );
   }
 
   setBreadcrumbHome(newValue: string): void {
