@@ -23,11 +23,6 @@ template.innerHTML = /* html */ `
 `;
 
 export class CmdHeader extends HTMLElement {
-  private __placeholder: string = "Type here...";
-  private __hideBreadcrumbs: boolean = false;
-  private __breadcrumbHome: string = "Home";
-  private __breadcrumbs: string[] = [];
-
   private inputRef: HTMLInputElement;
 
   // This part is used to store each button along with its listener created, to later remove it when
@@ -132,32 +127,32 @@ export class CmdHeader extends HTMLElement {
     return this.getAttribute(Attributes.PLACEHOLDER) ?? "Type here...";
   }
 
+  set placeholder(_v : string) {
+    // This is to avoid errors in the parent when using Typescript
+  }
+
   get hideBreadcrumbs() {
     return this.getAttribute(Attributes.HIDE_BREADCRUMBS) === "true";
+  }
+
+  set hideBreadcrumbs(_v : boolean) {
+    // This is to avoid errors in the parent when using Typescript
   }
 
   get breadcrumbHome() {
     return this.getAttribute(Attributes.BREADCRUMB_HOME) ?? "Home";
   }
 
+  set breadcrumbHome(_v : string) {
+    // This is to avoid errors in the parent when using Typescript
+  }
+
   get breadcrumbs() {
     return (this.getAttribute(Attributes.BREADCRUMBS) ?? []) as string[];
   }
 
-  set placeholder(value: string) {
-    this.__placeholder = value;
-  }
-
-  set hideBreadcrumbs(value: boolean) {
-    this.__hideBreadcrumbs = value;
-  }
-
-  set breadcrumbHome(value: string) {
-    this.__breadcrumbHome = value;
-  }
-
-  set breadcrumbs(value: string[]) {
-    this.__breadcrumbs = value;
+  set breadcrumbs(_v : string[]) {
+    // This is to avoid errors in the parent when using Typescript
   }
 
   handleChangePlaceholder() {
