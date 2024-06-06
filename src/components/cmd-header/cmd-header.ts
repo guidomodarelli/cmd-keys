@@ -5,8 +5,8 @@ import { AttributesTypes, ButtonWithListenerRef } from "./types";
 import { CloseEvent } from "src/components/cmd-header/events/close.event";
 import { Attributes } from "./constants";
 import { parseBoolean } from "src/utils/parse-boolean.util";
-import { parseList } from "src/utils/parse-list";
-import { hide, show } from "src/utils/show-hide";
+import { parseList } from "src/utils/parse-list.util";
+import { hide, show } from "src/utils/show-hide.util";
 
 const template = document.createElement("template");
 
