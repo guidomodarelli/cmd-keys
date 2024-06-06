@@ -4,6 +4,8 @@ import styles from "./styles";
 import { AttributesTypes, ButtonWithListenerRef } from "./types";
 import { CloseEvent } from "src/components/cmd-header/events/close.event";
 import { Attributes } from "./constants";
+import { parseBoolean } from "src/utils/parse-boolean.util";
+import { parseList } from "src/utils/parse-list";
 
 const template = document.createElement("template");
 
@@ -166,13 +168,7 @@ export class CmdHeader extends HTMLElement {
   }
 
   isBreadcrumbsHidden(): boolean {
-    try {
-      return JSON.parse(
-        this.getAttribute(Attributes.HIDE_BREADCRUMBS) ?? "false"
-      );
-    } catch (err) {
-      return false;
-    }
+    return parseBoolean(this.getAttribute(Attributes.HIDE_BREADCRUMBS));
   }
 
   setHideBreadcrumbs(newValue: boolean): void {
@@ -192,11 +188,7 @@ export class CmdHeader extends HTMLElement {
   }
 
   getBreadcrumbs(): string[] {
-    try {
-      return JSON.parse(this.getAttribute(Attributes.BREADCRUMBS) ?? "[]");
-    } catch (err) {
-      return [];
-    }
+    return parseList(this.getAttribute(Attributes.BREADCRUMBS));
   }
 
   setBreadcrumbs(newValue: string[]): void {
