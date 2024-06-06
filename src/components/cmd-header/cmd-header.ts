@@ -2,11 +2,11 @@ import { SetParentEvent } from "./events/set-parent.event";
 import { ChangeEvent } from "./events/change.event";
 import styles from "./styles";
 import { AttributesTypes, ButtonWithListenerRef } from "./types";
-import { CloseEvent } from "src/components/cmd-header/events/close.event";
+import { CloseEvent } from "../../components/cmd-header/events/close.event";
 import { Attributes } from "./constants";
-import { parseBoolean } from "src/utils/parse-boolean.util";
-import { parseList } from "src/utils/parse-list.util";
-import { hide, show } from "src/utils/show-hide.util";
+import { parseBoolean } from "../../utils/parse-boolean.util";
+import { parseList } from "../../utils/parse-list.util";
+import { hide, show } from "../../utils/show-hide.util";
 
 const template = document.createElement("template");
 
@@ -27,7 +27,7 @@ template.innerHTML = /* html */ `
 
 export class CmdHeader extends HTMLElement {
   static get tag() {
-    return "cmd_header";
+    return "cmd-header";
   }
 
   static readonly PLACEHOLDER_DEFAULT = "Type here...";
