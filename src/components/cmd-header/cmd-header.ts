@@ -90,16 +90,16 @@ export class CmdHeader extends HTMLElement {
   }
 
   handleChangeHideBreadcrumbs() {
-    let breadcrumbs: HTMLDivElement;
+    let breadcrumbList: HTMLDivElement;
     if (!this.hideBreadcrumbs) {
-      breadcrumbs = document.createElement("div");
-      breadcrumbs.classList.add("breadcrumb-list");
-      breadcrumbs.appendChild(this.createButton());
+      breadcrumbList = document.createElement("div");
+      breadcrumbList.classList.add("breadcrumb-list");
+      breadcrumbList.appendChild(this.createButton());
 
       for (const breadcrumb of this.breadcrumbs) {
-        breadcrumbs.appendChild(this.createButton(breadcrumb));
+        breadcrumbList.appendChild(this.createButton(breadcrumb));
       }
-      this.shadowRoot?.prepend(breadcrumbs);
+      this.shadowRoot?.prepend(breadcrumbList);
     }
   }
 
