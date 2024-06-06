@@ -1,8 +1,9 @@
 import { SetParentEvent } from "./events/set-parent.event";
 import { ChangeEvent } from "./events/change.event";
 import styles from "./styles";
-import { Attributes, AttributesTypes, ButtonWithListenerRef } from "./types";
+import { AttributesTypes, ButtonWithListenerRef } from "./types";
 import { CloseEvent } from "src/components/cmd-header/events/close.event";
+import { Attributes } from "./constants";
 
 const template = document.createElement("template");
 

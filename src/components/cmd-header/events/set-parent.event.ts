@@ -1,4 +1,4 @@
-import { CmdHeaderEventType } from "../types";
+import { CmdHeaderEventType } from "../constants";
 
 export class SetParentEvent extends CustomEvent<{ parent?: string }> {
   constructor(parent?: string) {

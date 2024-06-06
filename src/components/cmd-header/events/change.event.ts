@@ -1,4 +1,4 @@
-import { CmdHeaderEventType } from "../types";
+import { CmdHeaderEventType } from "../constants";
 
 export class ChangeEvent extends CustomEvent<{ search: string }> {
   constructor(search: string) {
