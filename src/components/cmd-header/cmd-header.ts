@@ -76,22 +76,22 @@ export class CmdHeader extends HTMLElement {
   }
 
   createButton(breadcrumb?: string) {
-    const buttownWithListener: ButtonWithListenerRef = {
+    const buttonWithListener: ButtonWithListenerRef = {
       button: document.createElement("button"),
       listener: () => this.selectParent(breadcrumb),
     };
 
-    buttownWithListener.button.tabIndex = -1;
-    buttownWithListener.button.classList.add("breadcrumb");
-    buttownWithListener.button.textContent = breadcrumb ?? this.breadcrumbHome;
-    buttownWithListener.button.addEventListener(
+    buttonWithListener.button.tabIndex = -1;
+    buttonWithListener.button.classList.add("breadcrumb");
+    buttonWithListener.button.textContent = breadcrumb ?? this.breadcrumbHome;
+    buttonWithListener.button.addEventListener(
       "click",
-      buttownWithListener.listener
+      buttonWithListener.listener
     );
 
-    this.buttonsRef.push(buttownWithListener);
+    this.buttonsRef.push(buttonWithListener);
 
-    return buttownWithListener.button;
+    return buttonWithListener.button;
   }
 
   handleChangeHideBreadcrumbs() {
