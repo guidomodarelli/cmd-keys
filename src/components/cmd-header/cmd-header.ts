@@ -23,10 +23,10 @@ template.innerHTML = /* html */ `
 `;
 
 export class CmdHeader extends HTMLElement {
-  public placeholder: string = "Type here...";
-  public hideBreadcrumbs: boolean = false;
-  public breadcrumbHome: string = "Home";
-  public breadcrumbs: string[] = [];
+  private __placeholder: string = "Type here...";
+  private __hideBreadcrumbs: boolean = false;
+  private __breadcrumbHome: string = "Home";
+  private __breadcrumbs: string[] = [];
 
   private inputRef: HTMLInputElement;
 
@@ -128,12 +128,40 @@ export class CmdHeader extends HTMLElement {
     }
   }
 
-  getPlaceholder() {
-    return this.getAttribute(Attributes.PLACEHOLDER) ?? this.placeholder;
+  get placeholder() {
+    return this.getAttribute(Attributes.PLACEHOLDER) ?? "Type here...";
+  }
+
+  get hideBreadcrumbs() {
+    return this.getAttribute(Attributes.HIDE_BREADCRUMBS) === "true";
+  }
+
+  get breadcrumbHome() {
+    return this.getAttribute(Attributes.BREADCRUMB_HOME) ?? "Home";
+  }
+
+  get breadcrumbs() {
+    return (this.getAttribute(Attributes.BREADCRUMBS) ?? []) as string[];
+  }
+
+  set placeholder(value: string) {
+    this.__placeholder = value;
+  }
+
+  set hideBreadcrumbs(value: boolean) {
+    this.__hideBreadcrumbs = value;
+  }
+
+  set breadcrumbHome(value: string) {
+    this.__breadcrumbHome = value;
+  }
+
+  set breadcrumbs(value: string[]) {
+    this.__breadcrumbs = value;
   }
 
   handleChangePlaceholder() {
-    this.inputRef.placeholder = this.getPlaceholder();
+    this.inputRef.placeholder = this.placeholder;
   }
 
   setSearch(value: string) {
