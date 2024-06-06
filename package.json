@@ -1,0 +1,25 @@
+{
+  "name": "cmd-key",
+  "version": "0.0.1",
+  "description": "Keyboard shortcuts interface for your website without dependencies. Working with static HTML, Vanilla JS, Vue, React, Svelte.",
+  "type": "module",
+  "scripts": {
+    "build": "NODE_ENV=production rollup -c",
+    "clean": "rimraf dist/",
+    "dev": "NODE_ENV=development rollup -c -w"
+  },
+  "author": "Guido Modarelli <guidomodarelli25@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.14.2",
+    "rimraf": "^5.0.7",
+    "rollup": "^4.18.0",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^1.1.1",
+    "rollup-plugin-summary": "^2.0.1",
+    "tslib": "^2.6.3",
+    "typescript": "^5.4.5"
+  }
+}
