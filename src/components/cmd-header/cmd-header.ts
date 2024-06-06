@@ -6,6 +6,7 @@ import { CloseEvent } from "src/components/cmd-header/events/close.event";
 import { Attributes } from "./constants";
 import { parseBoolean } from "src/utils/parse-boolean.util";
 import { parseList } from "src/utils/parse-list";
+import { hide, show } from "src/utils/show-hide";
 
 const template = document.createElement("template");
 
@@ -102,9 +103,9 @@ export class CmdHeader extends HTMLElement {
 
   handleChangeHideBreadcrumbs() {
     if (this.isBreadcrumbsHidden()) {
-      this.breadcrumbListParent.style.display = "none";
+      hide(this.breadcrumbListParent);
     } else {
-      this.breadcrumbListParent.style.display = "flex";
+      show(this.breadcrumbListParent, "flex");
     }
   }
 
