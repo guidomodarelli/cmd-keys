@@ -4,7 +4,7 @@ export const footerHtml = /* html */`
     <span class="help">
       <svg
         version="1.0"
-        class="ninja-examplekey"
+        class="cmd-examplekey"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1280 1280"
       >
@@ -17,7 +17,7 @@ export const footerHtml = /* html */`
     <span class="help">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="ninja-examplekey"
+        class="cmd-examplekey"
         viewBox="0 0 24 24"
       >
         <path d="M0 0h24v24H0V0z" fill="none" />
@@ -27,7 +27,7 @@ export const footerHtml = /* html */`
       </svg>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="ninja-examplekey"
+        class="cmd-examplekey"
         viewBox="0 0 24 24"
       >
         <path d="M0 0h24v24H0V0z" fill="none" />
@@ -36,13 +36,13 @@ export const footerHtml = /* html */`
       to navigate
     </span>
     <span class="help">
-      <span class="ninja-examplekey esc">esc</span>
+      <span class="cmd-examplekey esc">esc</span>
       to close
     </span>
     <span class="help">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="ninja-examplekey backspace"
+        class="cmd-examplekey backspace"
         viewBox="0 0 20 20"
         fill="currentColor"
       >
