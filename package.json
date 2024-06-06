@@ -7,7 +7,8 @@
     "build": "NODE_ENV=production rollup -c",
     "clean": "rimraf dist/",
     "dev": "NODE_ENV=development rollup -c -w",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "author": "Guido Modarelli <guidomodarelli25@gmail.com>",
   "license": "MIT",
