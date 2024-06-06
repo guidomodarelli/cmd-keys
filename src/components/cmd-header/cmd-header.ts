@@ -23,6 +23,8 @@ template.innerHTML = /* html */ `
 `;
 
 export class CmdHeader extends HTMLElement {
+  static readonly PLACEHOLDER_DEFAULT = "Type here...";
+
   private inputRef: HTMLInputElement;
 
   private breadcrumbListParent: HTMLDivElement = document.createElement("div");
@@ -154,7 +156,9 @@ export class CmdHeader extends HTMLElement {
   }
 
   getPlaceholder(): string {
-    return this.getAttribute(Attributes.PLACEHOLDER) ?? "Type here...";
+    return (
+      this.getAttribute(Attributes.PLACEHOLDER) ?? CmdHeader.PLACEHOLDER_DEFAULT
+    );
   }
 
   setPlaceholder(newValue: string): void {
