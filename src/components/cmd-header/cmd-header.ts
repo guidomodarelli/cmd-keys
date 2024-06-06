@@ -26,6 +26,10 @@ template.innerHTML = /* html */ `
 `;
 
 export class CmdHeader extends HTMLElement {
+  static get tag() {
+    return "cmd_header";
+  }
+
   static readonly PLACEHOLDER_DEFAULT = "Type here...";
   static readonly BREADCRUMB_HOME_DEFAULT = "Home";
 
@@ -267,4 +271,4 @@ export class CmdHeader extends HTMLElement {
   }
 }
 
-window.customElements.define("cmd-header", CmdHeader);
+window.customElements.define(CmdHeader.tag, CmdHeader);

@@ -11,6 +11,10 @@ template.innerHTML = /* html */ `
 `;
 
 class CmdKey extends HTMLElement {
+  static get tag() {
+    return CMD_KEYS;
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
