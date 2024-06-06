@@ -128,9 +128,12 @@ export class CmdHeader extends HTMLElement {
     }
   }
 
+  getPlaceholder() {
+    return this.getAttribute(Attributes.PLACEHOLDER) ?? this.placeholder;
+  }
+
   handleChangePlaceholder() {
-    this.inputRef.placeholder =
-      this.getAttribute(Attributes.PLACEHOLDER) ?? this.placeholder;
+    this.inputRef.placeholder = this.getPlaceholder();
   }
 
   setSearch(value: string) {
