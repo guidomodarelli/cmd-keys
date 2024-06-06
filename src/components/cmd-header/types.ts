@@ -1,6 +1,6 @@
 import { Attributes } from "./constants";
 
-export type AttributesTypes = `${Attributes}`;
+export type AttributesTypes = (typeof Attributes)[keyof typeof Attributes];
 
 export interface ButtonWithListenerRef {
   button: HTMLButtonElement;
