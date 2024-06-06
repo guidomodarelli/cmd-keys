@@ -25,15 +25,18 @@ template.innerHTML = /* html */ `
 export class CmdHeader extends HTMLElement {
   private inputRef: HTMLInputElement;
 
+  private breadcrumbListParent: HTMLDivElement = document.createElement("div");
+
   // This part is used to store each button along with its listener created, to later remove it when
   // disconnectedCallback is called.
-  private buttonsRef: ButtonWithListenerRef[];
+  private breadcrumbList: ButtonWithListenerRef[] = [];
+  private breadcrumbButtonHome: ButtonWithListenerRef = this.createButton();
 
   override getAttribute(qualifiedName: AttributesTypes): string | null {
     return super.getAttribute(qualifiedName);
   }
 
-  override setAttribute(qualifiedName: AttributesTypes, value: string): void {
+  override setAttribute(qualifiedName: AttributesTypes, value: any): void {
     super.setAttribute(qualifiedName, value);
   }
 
@@ -49,11 +52,12 @@ export class CmdHeader extends HTMLElement {
     this.shadowRoot?.appendChild(template.content.cloneNode(true));
 
     this.inputRef = this.shadowRoot?.querySelector("input") as HTMLInputElement;
-    this.inputRef.addEventListener("input", this.handleInput);
     this.initInput();
 
-    this.buttonsRef = [];
-    this.handleChangeHideBreadcrumbs();
+    this.breadcrumbListParent.classList.add("breadcrumb-list");
+    this.breadcrumbListParent.appendChild(this.breadcrumbButtonHome.button);
+    this.addBreadcrumbs();
+    this.shadowRoot?.prepend(this.breadcrumbListParent);
   }
 
   static get observedAttributes() {
@@ -78,33 +82,55 @@ export class CmdHeader extends HTMLElement {
 
     buttonWithListener.button.tabIndex = -1;
     buttonWithListener.button.classList.add("breadcrumb");
-    buttonWithListener.button.textContent = breadcrumb ?? this.breadcrumbHome;
+    buttonWithListener.button.textContent =
+      breadcrumb ?? this.getBreadcrumbHome();
     buttonWithListener.button.addEventListener(
       "click",
       buttonWithListener.listener
     );
 
-    this.buttonsRef.push(buttonWithListener);
+    return buttonWithListener;
+  }
 
-    return buttonWithListener.button;
+  handleChangePlaceholder(newValue?: string) {
+    this.inputRef.placeholder = newValue ?? this.getPlaceholder();
   }
 
   handleChangeHideBreadcrumbs() {
-    let breadcrumbList: HTMLDivElement;
-    if (!this.hideBreadcrumbs) {
-      breadcrumbList = document.createElement("div");
-      breadcrumbList.classList.add("breadcrumb-list");
-      breadcrumbList.appendChild(this.createButton());
-
-      for (const breadcrumb of this.breadcrumbs) {
-        breadcrumbList.appendChild(this.createButton(breadcrumb));
-      }
-      this.shadowRoot?.prepend(breadcrumbList);
+    if (this.isBreadcrumbsHidden()) {
+      this.breadcrumbListParent.style.display = "none";
+    } else {
+      this.breadcrumbListParent.style.display = "flex";
     }
   }
 
-  attributeChangeCallback(name: string, oldValue: unknown, newValue: unknown) {
-    if (oldValue !== newValue) {
+  handleChangeBreadcrumbHome() {
+    this.breadcrumbButtonHome.button.textContent = this.getBreadcrumbHome();
+  }
+
+  handleChangeBreadcrumbs() {
+    this.removeAllBreadcrumbs();
+    this.addBreadcrumbs();
+  }
+
+  addBreadcrumbs() {
+    const breadcrumbs = this.getBreadcrumbs();
+    for (let i = 0, length = breadcrumbs.length; i < length; i++) {
+      const newBreadcrumbButton = this.createButton(breadcrumbs[i]);
+      this.breadcrumbList.push(newBreadcrumbButton);
+      this.breadcrumbListParent.appendChild(newBreadcrumbButton.button);
+    }
+  }
+
+  removeAllBreadcrumbs() {
+    this.breadcrumbList.forEach(({ button, listener }) => {
+      button.removeEventListener("click", listener);
+      button.remove();
+    });
+  }
+
+  attributeChangedCallback(name: string, oldValue: unknown, newValue: unknown) {
+    if (newValue !== oldValue) {
       switch (name) {
         case Attributes.PLACEHOLDER:
           this.handleChangePlaceholder();
@@ -113,79 +139,130 @@ export class CmdHeader extends HTMLElement {
           this.handleChangeHideBreadcrumbs();
           break;
         }
-        case Attributes.BREADCRUMB_HOME:
+        case Attributes.BREADCRUMB_HOME: {
+          this.handleChangeBreadcrumbHome();
           break;
-        case Attributes.BREADCRUMBS:
+        }
+        case Attributes.BREADCRUMBS: {
+          this.handleChangeBreadcrumbs();
           break;
+        }
         default:
           break;
       }
     }
   }
 
-  get placeholder() {
+  getPlaceholder(): string {
     return this.getAttribute(Attributes.PLACEHOLDER) ?? "Type here...";
   }
 
-  set placeholder(_v : string) {
-    // This is to avoid errors in the parent when using Typescript
+  setPlaceholder(newValue: string): void {
+    this.setAttribute(Attributes.PLACEHOLDER, newValue);
   }
 
-  get hideBreadcrumbs() {
-    return this.getAttribute(Attributes.HIDE_BREADCRUMBS) === "true";
+  isBreadcrumbsHidden(): boolean {
+    try {
+      return JSON.parse(
+        this.getAttribute(Attributes.HIDE_BREADCRUMBS) ?? "false"
+      );
+    } catch (err) {
+      return false;
+    }
   }
 
-  set hideBreadcrumbs(_v : boolean) {
-    // This is to avoid errors in the parent when using Typescript
+  setHideBreadcrumbs(newValue: boolean): void {
+    this.setAttribute(Attributes.HIDE_BREADCRUMBS, newValue);
   }
 
-  get breadcrumbHome() {
+  toggleBreadcrumbs(): void {
+    this.setHideBreadcrumbs(!this.isBreadcrumbsHidden());
+  }
+
+  getBreadcrumbHome(): string {
     return this.getAttribute(Attributes.BREADCRUMB_HOME) ?? "Home";
   }
 
-  set breadcrumbHome(_v : string) {
-    // This is to avoid errors in the parent when using Typescript
+  setBreadcrumbHome(newValue: string): void {
+    this.setAttribute(Attributes.BREADCRUMB_HOME, newValue);
   }
 
-  get breadcrumbs() {
-    return (this.getAttribute(Attributes.BREADCRUMBS) ?? []) as string[];
+  getBreadcrumbs(): string[] {
+    try {
+      return JSON.parse(this.getAttribute(Attributes.BREADCRUMBS) ?? "[]");
+    } catch (err) {
+      return [];
+    }
   }
 
-  set breadcrumbs(_v : string[]) {
-    // This is to avoid errors in the parent when using Typescript
+  setBreadcrumbs(newValue: string[]): void {
+    this.setAttribute(Attributes.BREADCRUMBS, JSON.stringify(newValue));
   }
 
-  handleChangePlaceholder() {
-    this.inputRef.placeholder = this.placeholder;
+  addBreadcrumb(newValue: string, index?: number) {
+    if (index) {
+      this.setBreadcrumbs(
+        this.getBreadcrumbs().slice().splice(index, 0, newValue)
+      );
+    } else {
+      this.setBreadcrumbs(this.getBreadcrumbs().concat(newValue));
+    }
   }
 
-  setSearch(value: string) {
+  removeFirstBreadcrumb() {
+    this.setBreadcrumbs(this.getBreadcrumbs().slice(1));
+  }
+
+  private removeLastBreadcrumb() {
+    this.setBreadcrumbs(this.getBreadcrumbs().slice(0, -1));
+  }
+
+  removeBreadcrumb(index?: number) {
+    const breadcrumbs = this.getBreadcrumbs();
+    if (!index || index >= breadcrumbs.length - 1) {
+      this.removeLastBreadcrumb();
+    } else if (index === 0) {
+      this.removeFirstBreadcrumb();
+    } else {
+      this.setBreadcrumbs(
+        breadcrumbs.filter((_, currentIndex) => index !== currentIndex)
+      );
+    }
+  }
+
+  setSearch(value: string): void {
     this.inputRef.value = value;
   }
 
-  focusSearch() {
+  focusSearch(): void {
     requestAnimationFrame(() => {
       this.inputRef.focus();
     });
   }
 
-  initInput() {
-    this.handleChangePlaceholder();
+  private initInput(): void {
+    this.inputRef.addEventListener("input", this.handleInput);
     this.focusSearch();
   }
 
-  private selectParent(breadcrumb?: string) {
+  private selectParent(breadcrumb?: string): void {
     this.dispatchEvent(new SetParentEvent(breadcrumb));
   }
 
-  connectedCallback() {}
+  connectedCallback(): void {
+    this.handleChangePlaceholder();
+    this.handleChangeHideBreadcrumbs();
+    this.handleChangeBreadcrumbHome();
+  }
 
-  disconnectedCallback() {
+  disconnectedCallback(): void {
     this.dispatchEvent(new CloseEvent());
     this.inputRef.removeEventListener("input", this.handleInput);
-    this.buttonsRef.forEach(({ button, listener }) => {
-      button.removeEventListener("click", listener);
-    });
+    this.breadcrumbButtonHome.button.removeEventListener(
+      "click",
+      this.breadcrumbButtonHome.listener
+    );
+    this.removeAllBreadcrumbs();
   }
 }
 
