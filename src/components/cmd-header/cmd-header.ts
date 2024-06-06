@@ -62,7 +62,6 @@ export class CmdHeader extends HTMLElement {
     this.shadowRoot?.appendChild(template.content.cloneNode(true));
 
     this.inputRef = this.shadowRoot?.querySelector("input") as HTMLInputElement;
-    this.initInput();
 
     this.breadcrumbListParent.classList.add("breadcrumb-list");
     this.breadcrumbListParent.appendChild(this.breadcrumbButtonHome.button);
@@ -255,6 +254,7 @@ export class CmdHeader extends HTMLElement {
   }
 
   connectedCallback(): void {
+    this.initInput();
     this.handleChangePlaceholder();
     this.handleChangeHideBreadcrumbs();
     this.handleChangeBreadcrumbHome();
