@@ -36,5 +36,10 @@ export default {
     format: "esm",
     sourcemap: true,
   },
-  plugins: [typescript(), ...plugins],
+  plugins: [
+    typescript({
+      tsconfig: "./tsconfig.build.json",
+    }),
+    ...plugins,
+  ],
 };
