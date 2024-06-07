@@ -1,4 +1,3 @@
-import { Attributes } from "../src/components/cmd-header/constants";
 import { CmdHeader } from "../src/components/cmd-header/cmd-header";
 import { TestUtils } from "./TestUtils";
 
@@ -34,7 +33,7 @@ describe("CmdHeader component", () => {
 
     it("verifies the input placeholder has changed to 'HERE'", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
-        [Attributes.PLACEHOLDER]: "HERE",
+        ['placeholder']: "HERE",
       });
       const input = shadowRoot?.querySelector("input");
 
@@ -71,7 +70,7 @@ describe("CmdHeader component", () => {
 
     it("verifies that the first breadcrumb displays the text 'TEST'", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
-        [Attributes.BREADCRUMB_HOME]: "TEST",
+        ['breadcrumb-home']: "TEST",
       });
       const breadcrumb = shadowRoot?.querySelector("button.breadcrumb");
 
@@ -80,7 +79,7 @@ describe("CmdHeader component", () => {
 
     it("verifies that the breadcrumb list is hidden", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
-        [Attributes.HIDE_BREADCRUMBS]: true,
+        ['hide-breadcrumbs']: true,
       });
       const breadcrumbList = shadowRoot?.querySelector(".breadcrumb-list");
 
