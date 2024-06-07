@@ -46,10 +46,9 @@ describe("CmdHeader component", () => {
 
       // By focusing the input field asynchronously within a requestAnimationFrame, this can cause the input field not
       // to be focused immediately after the call to focus(), which could lead to issues in the test.
-      // One solution is to wait for a brief period after focusing the input field to allow the focus to be established.
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         expect(shadowRoot?.activeElement === input).toBeTruthy();
-      }, 0);
+      });
     });
   });
 
