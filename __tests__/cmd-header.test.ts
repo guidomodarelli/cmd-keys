@@ -78,7 +78,7 @@ describe("CmdHeader component", () => {
       expect(breadcrumb?.textContent).toBe("TEST");
     });
 
-    it("verifies that the breadcrumb is hidden", async () => {
+    it("verifies that the breadcrumb list is hidden", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
         [Attributes.HIDE_BREADCRUMBS]: true,
       });
