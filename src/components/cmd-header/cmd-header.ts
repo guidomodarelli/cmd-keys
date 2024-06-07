@@ -12,6 +12,7 @@ const template = document.createElement("template");
 
 template.innerHTML = /* html */ `
   <style>${styles}</style>
+  <div class="breadcrumb-list"></div>
   <div class="search-wrapper">
     <label>
       <input
@@ -35,7 +36,7 @@ export class CmdHeader extends HTMLElement {
 
   private inputRef: HTMLInputElement;
 
-  private breadcrumbListParent: HTMLDivElement = document.createElement("div");
+  private breadcrumbListParent: HTMLDivElement;
 
   // This part is used to store each button along with its listener created, to later remove it when
   // disconnectedCallback is called.
@@ -63,10 +64,11 @@ export class CmdHeader extends HTMLElement {
 
     this.inputRef = this.shadowRoot?.querySelector("input") as HTMLInputElement;
 
-    this.breadcrumbListParent.classList.add("breadcrumb-list");
+    this.breadcrumbListParent = this.shadowRoot?.querySelector(
+      ".breadcrumb-list"
+    ) as HTMLDivElement;
     this.breadcrumbListParent.appendChild(this.breadcrumbButtonHome.button);
     this.addBreadcrumbs();
-    this.shadowRoot?.prepend(this.breadcrumbListParent);
   }
 
   static get observedAttributes() {
