@@ -44,8 +44,10 @@ describe("CmdHeader component", () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
       const input = shadowRoot?.querySelector("input");
 
-      // By focusing the input field asynchronously within a requestAnimationFrame, this can cause the input field not
-      // to be focused immediately after the call to focus(), which could lead to issues in the test.
+      // By focusing the input field asynchronously within a
+      // requestAnimationFrame, this can cause the input field not to be focused
+      // immediately after the call to focus(), which could lead to issues in
+      // the test.
       requestAnimationFrame(() => {
         expect(shadowRoot?.activeElement === input).toBeTruthy();
       });
