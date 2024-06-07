@@ -25,6 +25,13 @@ describe("CmdHeader component", () => {
       expect(input).toBeTruthy();
     });
 
+    it("verifies the input placeholder is 'Type here...'", async () => {
+      const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
+      const input = shadowRoot?.querySelector("input");
+
+      expect(input?.placeholder).toBe("Type here...")
+    });
+
     it.skip("verifies the input field is focused", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
       const input = shadowRoot?.querySelector("input");
