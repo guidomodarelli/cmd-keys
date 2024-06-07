@@ -25,17 +25,23 @@ export class TestUtils {
    * becomes `foo="bar" baz="foo"`
    */
   private static mapObjectToHTMLAttributes(attributes: object): string {
-    return Object.entries(attributes).reduce((previous, current) => {
-      return previous + ` ${current[0]}="${current[1]}"`;
-    }, "");
+    return Object.entries(attributes).reduce(
+      (previous, current: [string, string]) => {
+        const [key, value] = current;
+        return previous + ` ${key}='${value}'`;
+      },
+      ""
+    );
   }
 
   /**
    * Returns a promise which resolves as soon as
    * requested element becomes available.
    */
-  private static async waitForComponentToRender(tag: string):Promise<HTMLElement> {
-    return new Promise(resolve => {
+  private static async waitForComponentToRender(
+    tag: string
+  ): Promise<HTMLElement> {
+    return new Promise((resolve) => {
       function requestComponent() {
         const element = document.querySelector(tag) as HTMLElement;
         if (element) {

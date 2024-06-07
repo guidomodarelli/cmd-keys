@@ -92,5 +92,16 @@ describe("CmdHeader component", () => {
 
       expect(firstBreadcrumb?.getAttribute("tabindex")).toMatch(/-1/);
     });
+
+    it("verifies that there are more breadcrumb buttons", async () => {
+      const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
+        ['breadcrumbs']: JSON.stringify(["TEST-1", "TEST-2"])
+      });
+      const allBreadcrumbs = shadowRoot?.querySelectorAll("button.breadcrumb");
+
+      expect(allBreadcrumbs?.item(0).textContent).toBe("Home")
+      expect(allBreadcrumbs?.item(1).textContent).toBe("TEST-1")
+      expect(allBreadcrumbs?.item(2).textContent).toBe("TEST-2")
+    });
   });
 });
