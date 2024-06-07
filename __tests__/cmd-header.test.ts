@@ -3,14 +3,14 @@ import { CmdHeader } from "../src/components/cmd-header/cmd-header";
 import { TestUtils } from "./TestUtils";
 
 describe("CmdHeader component", () => {
-  it("search-wrapper exists", async () => {
+  it("verifies the presence of the .search-wrapper element", async () => {
     const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
     const searchWrapper = shadowRoot?.querySelector(".search-wrapper");
 
     expect(searchWrapper).toBeTruthy();
   });
 
-  it("style exists", async () => {
+  it("verifies the presence of the style element", async () => {
     const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
     const style = shadowRoot?.querySelector("style");
 
@@ -18,14 +18,14 @@ describe("CmdHeader component", () => {
   });
 
   describe("Input", () => {
-    it("check if input exists", async () => {
+    it("verifies the presence of the input field", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
       const input = shadowRoot?.querySelector("input");
 
       expect(input).toBeTruthy();
     });
 
-    it.skip("check input is focused", async () => {
+    it.skip("verifies the input field is focused", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
       const input = shadowRoot?.querySelector("input");
 
@@ -35,38 +35,43 @@ describe("CmdHeader component", () => {
   });
 
   describe("Breadcrumb", () => {
-    it("check that the first breadcrumb button exists", async () => {
+    it("verifies that the first breadcrumb button is present", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
       const breadcrumb = shadowRoot?.querySelector("button.breadcrumb");
 
       expect(breadcrumb).toBeTruthy();
     });
 
-    it("check that the first breadcrumb has the text 'Home'", async () => {
+    it("verifies that the first breadcrumb displays the text 'Home'", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
       const breadcrumb = shadowRoot?.querySelector("button.breadcrumb");
 
       expect(breadcrumb?.textContent).toBe("Home");
     });
 
-    it("check that the first breadcrumb has the text 'test'", async () => {
+    it("verifies that the first breadcrumb displays the text 'TEST'", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
-        [Attributes.BREADCRUMB_HOME]: 'test'
+        [Attributes.BREADCRUMB_HOME]: "TEST",
       });
       const breadcrumb = shadowRoot?.querySelector("button.breadcrumb");
 
-      expect(breadcrumb?.textContent).toBe("test");
+      expect(breadcrumb?.textContent).toBe("TEST");
     });
 
-    it.skip("check that the breadcrumb is hidden", async () => {
+    it("verifies that the breadcrumb is hidden", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
-        [Attributes.HIDE_BREADCRUMBS]: "false"
+        [Attributes.HIDE_BREADCRUMBS]: true,
       });
-      const breadcrumb = shadowRoot?.querySelector("button.breadcrumb");
+      const breadcrumbList = shadowRoot?.querySelector(".breadcrumb-list");
 
-      expect(breadcrumb).toBe("none");
+      expect(breadcrumbList?.getAttribute("style")).toMatch(/display: none/);
     });
 
-    it.todo("should be a button with certain props");
+    it("verifies that there is a button with tabindex '-1'", async () => {
+      const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
+      const firstBreadcrumb = shadowRoot?.querySelector("button.breadcrumb");
+
+      expect(firstBreadcrumb?.getAttribute("tabindex")).toMatch(/-1/);
+    });
   });
 });
