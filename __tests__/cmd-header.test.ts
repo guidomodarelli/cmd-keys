@@ -62,14 +62,14 @@ describe("CmdHeader component", () => {
       expect(breadcrumb).toBeTruthy();
     });
 
-    it("verifies that the first breadcrumb displays the text 'Home'", async () => {
+    it("verifies that the home breadcrumb displays the text 'Home'", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag);
       const breadcrumb = shadowRoot?.querySelector("button.breadcrumb");
 
       expect(breadcrumb?.textContent).toBe("Home");
     });
 
-    it("verifies that the first breadcrumb displays the text 'TEST'", async () => {
+    it("verifies that the home breadcrumb displays the text 'TEST'", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
         ["breadcrumb-home"]: "TEST",
       });
@@ -105,7 +105,7 @@ describe("CmdHeader component", () => {
       expect(allBreadcrumbs?.item(2).textContent).toBe("TEST-2");
     });
 
-    it("verifies that the first breadcrumb displays the text 'asd' via API", async () => {
+    it("verifies that the home breadcrumb displays the text 'asd' when set via API", async () => {
       const cmdHeader = (await TestUtils.render(CmdHeader.tag)) as CmdHeader;
       const { shadowRoot } = cmdHeader;
 
@@ -115,7 +115,7 @@ describe("CmdHeader component", () => {
       expect(breadcrumbHome?.textContent).toBe("asd");
     });
 
-    it("verifies that there are more breadcrumb buttons via API", async () => {
+    it("verifies breadcrumb buttons are correctly set and added via API", async () => {
       const cmdHeader = (await TestUtils.render(CmdHeader.tag)) as CmdHeader;
       const { shadowRoot } = cmdHeader;
       let allBreadcrumbs: NodeListOf<Element> | undefined;
