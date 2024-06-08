@@ -33,7 +33,7 @@ describe("CmdHeader component", () => {
 
     it("verifies the input placeholder has changed to 'HERE'", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
-        ['placeholder']: "HERE",
+        ["placeholder"]: "HERE",
       });
       const input = shadowRoot?.querySelector("input");
 
@@ -71,7 +71,7 @@ describe("CmdHeader component", () => {
 
     it("verifies that the first breadcrumb displays the text 'TEST'", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
-        ['breadcrumb-home']: "TEST",
+        ["breadcrumb-home"]: "TEST",
       });
       const breadcrumb = shadowRoot?.querySelector("button.breadcrumb");
 
@@ -80,7 +80,7 @@ describe("CmdHeader component", () => {
 
     it("verifies that the breadcrumb list is hidden", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
-        ['hide-breadcrumbs']: true,
+        ["hide-breadcrumbs"]: true,
       });
       const breadcrumbList = shadowRoot?.querySelector(".breadcrumb-list");
 
@@ -96,55 +96,55 @@ describe("CmdHeader component", () => {
 
     it("verifies that there are more breadcrumb buttons", async () => {
       const { shadowRoot } = await TestUtils.render(CmdHeader.tag, {
-        ['breadcrumbs']: JSON.stringify(["TEST-1", "TEST-2"])
+        ["breadcrumbs"]: JSON.stringify(["TEST-1", "TEST-2"]),
       });
       const allBreadcrumbs = shadowRoot?.querySelectorAll("button.breadcrumb");
 
-      expect(allBreadcrumbs?.item(0).textContent).toBe("Home")
-      expect(allBreadcrumbs?.item(1).textContent).toBe("TEST-1")
-      expect(allBreadcrumbs?.item(2).textContent).toBe("TEST-2")
+      expect(allBreadcrumbs?.item(0).textContent).toBe("Home");
+      expect(allBreadcrumbs?.item(1).textContent).toBe("TEST-1");
+      expect(allBreadcrumbs?.item(2).textContent).toBe("TEST-2");
     });
 
     it("verifies that the first breadcrumb displays the text 'asd' via API", async () => {
-      const cmdHeader = await TestUtils.render(CmdHeader.tag) as CmdHeader;
+      const cmdHeader = (await TestUtils.render(CmdHeader.tag)) as CmdHeader;
       const { shadowRoot } = cmdHeader;
 
-      cmdHeader.setBreadcrumbHome("asd")
+      cmdHeader.setBreadcrumbHome("asd");
 
       const breadcrumbHome = shadowRoot?.querySelector("button.breadcrumb");
-      expect(breadcrumbHome?.textContent).toBe("asd")
+      expect(breadcrumbHome?.textContent).toBe("asd");
     });
 
     it("verifies that there are more breadcrumb buttons via API", async () => {
-      const cmdHeader = await TestUtils.render(CmdHeader.tag) as CmdHeader;
+      const cmdHeader = (await TestUtils.render(CmdHeader.tag)) as CmdHeader;
       const { shadowRoot } = cmdHeader;
       let allBreadcrumbs: NodeListOf<Element> | undefined;
 
-      cmdHeader.setBreadcrumbs(["test1", "test2"])
+      cmdHeader.setBreadcrumbs(["test1", "test2"]);
 
       allBreadcrumbs = shadowRoot?.querySelectorAll("button.breadcrumb");
-      expect(allBreadcrumbs?.item(1).textContent).toBe("test1")
-      expect(allBreadcrumbs?.item(2).textContent).toBe("test2")
+      expect(allBreadcrumbs?.item(1).textContent).toBe("test1");
+      expect(allBreadcrumbs?.item(2).textContent).toBe("test2");
 
-      cmdHeader.addBreadcrumb("test3")
-
-      allBreadcrumbs = shadowRoot?.querySelectorAll("button.breadcrumb");
-      expect(allBreadcrumbs?.item(3).textContent).toBe("test3")
-
-      cmdHeader.addBreadcrumb("test4", 2)
+      cmdHeader.addBreadcrumb("test3");
 
       allBreadcrumbs = shadowRoot?.querySelectorAll("button.breadcrumb");
-      expect(allBreadcrumbs?.item(3).textContent).toBe("test4")
+      expect(allBreadcrumbs?.item(3).textContent).toBe("test3");
 
-      cmdHeader.addBreadcrumb("test5", 0)
-
-      allBreadcrumbs = shadowRoot?.querySelectorAll("button.breadcrumb");
-      expect(allBreadcrumbs?.item(1).textContent).toBe("test5")
-
-      cmdHeader.setBreadcrumbs(["test1"])
+      cmdHeader.addBreadcrumb("test4", 2);
 
       allBreadcrumbs = shadowRoot?.querySelectorAll("button.breadcrumb");
-      expect(allBreadcrumbs?.item(2)).toBeNull()
+      expect(allBreadcrumbs?.item(3).textContent).toBe("test4");
+
+      cmdHeader.addBreadcrumb("test5", 0);
+
+      allBreadcrumbs = shadowRoot?.querySelectorAll("button.breadcrumb");
+      expect(allBreadcrumbs?.item(1).textContent).toBe("test5");
+
+      cmdHeader.setBreadcrumbs(["test1"]);
+
+      allBreadcrumbs = shadowRoot?.querySelectorAll("button.breadcrumb");
+      expect(allBreadcrumbs?.item(2)).toBeNull();
     });
   });
 });

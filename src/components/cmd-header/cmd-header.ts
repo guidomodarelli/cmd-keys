@@ -225,7 +225,7 @@ export class CmdHeader extends HTMLElement {
 
   removeBreadcrumb(index?: number) {
     const breadcrumbs = this.getBreadcrumbs();
-    if (!index || index >= breadcrumbs.length - 1) {
+    if (typeof index === 'undefined' || index >= breadcrumbs.length - 1) {
       this.removeLastBreadcrumb();
     } else if (index === 0) {
       this.removeFirstBreadcrumb();
