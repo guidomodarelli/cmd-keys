@@ -206,10 +206,10 @@ export class CmdHeader extends HTMLElement {
   }
 
   addBreadcrumb(newValue: string, index?: number) {
-    if (index) {
-      this.setBreadcrumbs(
-        this.getBreadcrumbs().slice().splice(index, 0, newValue)
-      );
+    if (typeof index !== 'undefined' && index >= 0) {
+      const newBreadcrumbs = [...this.getBreadcrumbs()];
+      newBreadcrumbs.splice(index, 0, newValue);
+      this.setBreadcrumbs(newBreadcrumbs);
     } else {
       this.setBreadcrumbs(this.getBreadcrumbs().concat(newValue));
     }
