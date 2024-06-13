@@ -1,4 +1,4 @@
-export interface CmdAction {
+export interface ICmdAction {
   id: string;
   title: string;
   hotkey?: string;
