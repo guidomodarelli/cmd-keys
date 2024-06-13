@@ -13,10 +13,10 @@ const template = document.createElement("template");
 template.innerHTML = /* html */ `
   <style>${styles}</style>
   <div class="breadcrumb-list"></div>
-  <div part="ninja-input-wrapper" class="search-wrapper">
+  <div part="cmd-input-wrapper" class="search-wrapper">
     <label>
       <input
-        part="ninja-input"
+        part="cmd-input"
         type="text"
         id="search"
         spellcheck="false"
