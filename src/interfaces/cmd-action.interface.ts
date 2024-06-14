@@ -7,6 +7,6 @@ export interface ICmdAction {
   icon?: string;
   parent?: string;
   keywords?: string;
-  children?: string[];
+  children?: (string | ICmdAction)[];
   section?: string;
 }
